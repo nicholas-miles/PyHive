@@ -17,7 +17,7 @@ try:
     from sqlalchemy.databases.mysql import MSTinyInteger
 except ImportError:
     # Newer versions of sqlalchemy require:
-    from sqlalchemy.dialects.mysql import MSTinyInteger
+    from sqlalchemy.dialects.mysql import TINYINT as MSTinyInteger
 from sqlalchemy.engine import default
 from sqlalchemy.sql import compiler
 from sqlalchemy.sql.compiler import SQLCompiler
