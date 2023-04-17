@@ -12,7 +12,7 @@ import datetime
 import decimal
 
 import re
-from sqlalchemy import exc
+from sqlalchemy import exc, text
 try:
     from sqlalchemy import processors
 except ImportError:
@@ -288,7 +288,7 @@ class HiveDialect(default.DefaultDialect):
         # Using DESCRIBE works but is uglier.
         try:
             # This needs the table name to be unescaped (no backticks).
-            rows = connection.execute('DESCRIBE {}'.format(full_table)).fetchall()
+            rows = connection.execute(text('DESCRIBE {}'.format(full_table))).fetchall()
         except exc.OperationalError as e:
             # Does the table exist?
             regex_fmt = r'TExecuteStatementResp.*SemanticException.*Table not found {}'
