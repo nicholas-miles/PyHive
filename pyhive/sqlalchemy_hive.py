@@ -291,7 +291,7 @@ class HiveDialect(default.DefaultDialect):
             rows = connection.execute(text('DESCRIBE {}'.format(full_table))).fetchall()
         except exc.OperationalError as e:
             # Does the table exist?
-            regex_fmt = r'TExecuteStatementResp.*SemanticException.*Table not found {}'
+            regex_fmt = r'TABLE_OR_VIEW_NOT_FOUND'
             regex = regex_fmt.format(re.escape(full_table))
             if re.search(regex, e.args[0]):
                 raise exc.NoSuchTableError(full_table)
@@ -299,7 +299,7 @@ class HiveDialect(default.DefaultDialect):
                 raise
         else:
             # Hive is stupid: this is what I get from DESCRIBE some_schema.does_not_exist
-            regex = r'Table .* does not exist'
+            regex_fmt = r'TABLE_OR_VIEW_NOT_FOUND'
             if len(rows) == 1 and re.match(regex, rows[0].col_name):
                 raise exc.NoSuchTableError(full_table)
             return rows
