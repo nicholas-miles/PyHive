@@ -206,7 +206,7 @@ class HiveTypeCompiler(compiler.GenericTypeCompiler):
         return 'TIMESTAMP'
 
     def visit_DATE(self, type_):
-        return 'TIMESTAMP'
+        return 'DATE'
 
     def visit_DATETIME(self, type_):
         return 'TIMESTAMP'
